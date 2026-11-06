@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Publish sn-dark-blue-theme to GitHub Pages.
+# Publish sn-lavender-theme to GitHub Pages.
 #
 # Run from inside your local clone, after copying the new files over.
 # One-time setup first: Settings > Pages > Source > "GitHub Actions".
@@ -11,9 +11,9 @@
 #
 set -euo pipefail
 
-REPO_SLUG="beshoysabri/sn-dark-blue-theme"
+REPO_SLUG="beshoysabri/sn-lavender-theme"
 BRANCH="master"       # this repo's default branch is master, not main
-PAGES="https://beshoysabri.github.io/sn-dark-blue-theme"
+PAGES="https://beshoysabri.github.io/sn-lavender-theme"
 MSG_FILE="${MSG_FILE:-RELEASE_NOTES.md}"
 
 # Derived from the manifest — one less place to forget to bump.
@@ -32,10 +32,10 @@ PKG=$(python3 -c "import json;print(json.load(open('package.json'))['version'])"
 [ "$EXT" = "$VERSION" ] || { echo "expected v$VERSION, manifests say v$EXT"; exit 1; }
 test -f dist/fonts/InterVariable.woff2
 test -f dist/fonts/InterVariable-Italic.woff2
-PAGES_FONTS="https://beshoysabri.github.io/sn-dark-blue-theme/dist/fonts"
+PAGES_FONTS="${PAGES}/dist/fonts"
 grep -q "url('${PAGES_FONTS}/InterVariable.woff2')" dist/dist.css
 grep -q "url('${PAGES_FONTS}/InterVariable-Italic.woff2')" dist/dist.css
-grep -q -- "--sn-stylekit-info-color: #086DD6;" dist/dist.css
+grep -q -- "--sn-stylekit-info-color: #a79ef4;" dist/dist.css
 test -f .nojekyll
 echo "    v$EXT, fonts present, absolute srcs, accent intact"
 
@@ -93,7 +93,7 @@ curl -fsSI -H 'Origin: https://app.standardnotes.com' \
   | grep -i 'access-control-allow-origin' \
   || echo "    WARNING: no ACAO header — confirm the repo is public"
 
-say "Purging the old jsDelivr copies so the legacy URL isn't stale"
+say "Purging jsDelivr so the alternative URL isn't stale"
 # Fire-and-forget left jsDelivr serving a stale ext.json after v2.3.0, so
 # confirm the purge actually landed rather than assuming it did.
 for path in ext.json dist/dist.css; do
@@ -113,9 +113,9 @@ cat <<EOF
 
 Done. ${PAGES}
 
-In Standard Notes, remove the existing Dark Blue theme and reinstall from:
+In Standard Notes, install Lavender from:
   ${PAGES}/ext.json
 
-The reinstall is one-time — the old install polls the jsDelivr ext.json, so it
-won't follow the move to Pages on its own.
+It has its own identifier, so it sits alongside Dark Blue rather than
+replacing it — pick either from the Appearance menu.
 EOF

@@ -1,12 +1,13 @@
 /*
- * Standard Notes Theme: Dark Blue
- * Native Dark palette with a blue accent instead of purple,
- * plus Inter across the whole app.
+ * Standard Notes Theme: Lavender
+ * Native Dark palette with a lavender accent instead of purple,
+ * plus Inter across the whole app. A fork of Dark Blue
+ *   https://github.com/beshoysabri/sn-dark-blue-theme
  *
  * Author : Beshoy Sabri
  * License: MIT. Inter is OFL 1.1 — see
- *   https://beshoysabri.github.io/sn-dark-blue-theme/LICENSE-3RD-PARTY
- * Version: 2.4.1
+ *   https://beshoysabri.github.io/sn-lavender-theme/LICENSE-3RD-PARTY
+ * Version: 2.5.0
  *
  * FONTS — READ THIS. The desktop client sets
  *   Content-Security-Policy: default-src 'self' blob:
@@ -26,9 +27,9 @@
  *
  * Structure:
  *   1. Typography — Inter webfont + knobs
- *   2. Colours    — byte-identical to v2.1.0
+ *   2. Colours    — v2.1.0 palette, lavender accent (changed in 2.5.0)
  *   3. Apply Inter app-wide                        (changed in 2.3.0)
- *   4. Daily view — blue instead of danger red     (new in 2.4.0)
+ *   4. Daily view — lavender instead of danger red (new in 2.4.0)
  */
 
 /* ==============================================================
@@ -52,7 +53,7 @@
   src:
     local('InterVariable'),
     local('Inter Variable'),
-    url('https://beshoysabri.github.io/sn-dark-blue-theme/dist/fonts/InterVariable.woff2')
+    url('https://beshoysabri.github.io/sn-lavender-theme/dist/fonts/InterVariable.woff2')
       format('woff2');
 }
 
@@ -64,7 +65,7 @@
   src:
     local('InterVariableItalic'),
     local('Inter Variable Italic'),
-    url('https://beshoysabri.github.io/sn-dark-blue-theme/dist/fonts/InterVariable-Italic.woff2')
+    url('https://beshoysabri.github.io/sn-lavender-theme/dist/fonts/InterVariable-Italic.woff2')
       format('woff2');
 }
 
@@ -91,15 +92,21 @@
 }
 
 /* ==============================================================
- * 2. COLOURS — unchanged from v2.1.0
+ * 2. COLOURS — the v2.1.0 palette with the accent moved to
+ *    lavender. Everything except the accent family and the two
+ *    colours that sit ON the accent is unchanged.
  * ============================================================== */
 
 :root {
-  /* Accent — blue instead of purple (#a464c2 → #086DD6) */
-  --sn-stylekit-info-color: #086DD6;
-  --sn-stylekit-info-color-darkened: #065cb5;
-  --sn-stylekit-info-contrast-color: #eeeeee;
-  --sn-stylekit-info-backdrop-color: #2b6fcf0f;
+  /* Accent — lavender instead of purple (#a464c2 → #a79ef4).
+     The darkened shade keeps the hue and drops HSL lightness by
+     the same 6.9 points Dark Blue's #086DD6 → #065cb5 did.
+     Text on the accent is dark, not #eeeeee: lavender is light
+     enough that #eeeeee on it is 2.05:1, while #0f1011 is 8.02:1. */
+  --sn-stylekit-info-color: #a79ef4;
+  --sn-stylekit-info-color-darkened: #8a7ff0;
+  --sn-stylekit-info-contrast-color: #0f1011;
+  --sn-stylekit-info-backdrop-color: #a79ef40f;
 
   /* Neutral */
   --sn-stylekit-neutral-color: #7c7c7c;
@@ -144,7 +151,7 @@
   --sn-stylekit-input-border-color: #e3e3e3;
 
   /* Scrollbar */
-  --sn-stylekit-scrollbar-thumb-color: #086DD6;
+  --sn-stylekit-scrollbar-thumb-color: #a79ef4;
   --sn-stylekit-scrollbar-track-border-color: #0f1011;
 
   /* Passive colors */
@@ -158,7 +165,8 @@
   --sn-stylekit-passive-color-6: #e5e5e5;
   --sn-stylekit-passive-color-super-light: #f9f9f9;
 
-  /* Accessory tint (native Dark defaults) */
+  /* Accessory tint (native Dark defaults). Tint 1 is Standard
+     Notes' stock blue for icon tints, not the accent, so it stays. */
   --sn-stylekit-accessory-tint-color-1: #086dd6;
   --sn-stylekit-accessory-tint-color-2: #ea6595;
   --sn-stylekit-accessory-tint-color-3: #ebad00;
@@ -169,7 +177,7 @@
   /* Component integration */
   --sn-component-foreground-color: #eeeeee;
   --sn-component-background-color: transparent;
-  --sn-component-foreground-highlight-color: #086DD6;
+  --sn-component-foreground-highlight-color: #a79ef4;
   --sn-component-outer-border-color: transparent;
   --sn-component-inner-border-color: #eeeeee;
 
@@ -177,7 +185,7 @@
   --sn-desktop-titlebar-bg-color: #0f1011;
   --sn-desktop-titlebar-border-color: #0f1011;
   --sn-desktop-titlebar-ui-color: #eeeeee;
-  --sn-desktop-titlebar-ui-hover-color: #086DD6;
+  --sn-desktop-titlebar-ui-hover-color: #a79ef4;
 
   /* Grey */
   --sn-stylekit-grey-5: #7c7c7c;
@@ -212,12 +220,13 @@
   --editor-pane-editor-foreground-color: #eeeeee;
   --editor-pane-component-stack-item-background-color: #0f1011;
 
-  /* Text selection */
-  --text-selection-color: #eeeeee;
-  --text-selection-background-color: #086DD6;
+  /* Text selection — dark text on the lavender highlight, for the
+     same contrast reason as the accent above. */
+  --text-selection-color: #0f1011;
+  --text-selection-background-color: #a79ef4;
 
   /* Note preview */
-  --note-preview-progress-color: #086DD6;
+  --note-preview-progress-color: #a79ef4;
   --note-preview-progress-background-color: #bbbec43d;
   --note-preview-selected-progress-color: #1c1d1e;
   --note-preview-selected-progress-background-color: #bbbec43d;
@@ -268,16 +277,16 @@ code *,
 }
 
 /* ==============================================================
- * 4. DAILY VIEW — blue instead of danger red
+ * 4. DAILY VIEW — lavender instead of danger red
  * The Daily notebook borrows Standard Notes' `danger` token for
  * today's date, days that have an entry, the entry tiles and the
  * create-note buttons, so they come out #f80324 against an
- * otherwise blue theme.
+ * otherwise lavender theme.
  *
  * These rules repaint only those elements, and only by REFERENCING
  * the accent variables the palette already defines — no
- * --sn-stylekit-* declaration is added, so the colour block stays
- * byte-identical to v2.1.0. Genuinely destructive UI keeps its red,
+ * --sn-stylekit-* declaration is added, so the colour block and
+ * its CI digest are untouched. Genuinely destructive UI keeps its red,
  * which is the whole reason this is scoped rather than a recolour
  * of --sn-stylekit-danger-color.
  *

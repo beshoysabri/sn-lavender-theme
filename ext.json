@@ -1,19 +1,19 @@
 {
-  "identifier": "com.beshoysabri.dark-blue-theme",
-  "name": "Dark Blue",
+  "identifier": "com.beshoysabri.lavender-theme",
+  "name": "Lavender",
   "content_type": "SN|Theme",
   "area": "themes",
-  "version": "2.4.1",
-  "description": "Native Dark theme with a blue accent instead of purple, set in Inter. Install Inter on the device for Desktop and Mobile — see the README.",
-  "url": "https://beshoysabri.github.io/sn-dark-blue-theme/dist/dist.css",
-  "latest_url": "https://beshoysabri.github.io/sn-dark-blue-theme/ext.json",
-  "download_url": "https://github.com/beshoysabri/sn-dark-blue-theme/archive/master.zip",
+  "version": "2.5.0",
+  "description": "Native Dark theme with a lavender accent instead of purple, set in Inter. Install Inter on the device for Desktop and Mobile — see the README.",
+  "url": "https://beshoysabri.github.io/sn-lavender-theme/dist/dist.css",
+  "latest_url": "https://beshoysabri.github.io/sn-lavender-theme/ext.json",
+  "download_url": "https://github.com/beshoysabri/sn-lavender-theme/archive/master.zip",
   "dock_icon": {
     "type": "circle",
-    "background_color": "#086DD6",
-    "foreground_color": "#086DD6",
-    "border_color": "#086DD6"
+    "background_color": "#a79ef4",
+    "foreground_color": "#a79ef4",
+    "border_color": "#a79ef4"
   },
   "statusBar": "dark-content",
-  "marketing_url": "https://beshoysabri.github.io/sn-dark-blue-theme"
+  "marketing_url": "https://beshoysabri.github.io/sn-lavender-theme"
 }

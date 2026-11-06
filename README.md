@@ -1,11 +1,13 @@
-# Dark Blue Theme for Standard Notes
+# Lavender Theme for Standard Notes
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-a79ef4.svg)](LICENSE)
 [![Standard Notes](https://img.shields.io/badge/Standard%20Notes-Theme-6366f1.svg)](https://standardnotes.com)
 
-A clean, dark theme for [Standard Notes](https://standardnotes.com) that replaces the default purple accent with a sharp blue, and sets the app in [Inter](https://rsms.me/inter/).
+A clean, dark theme for [Standard Notes](https://standardnotes.com) that replaces the default purple accent with a soft lavender, and sets the app in [Inter](https://rsms.me/inter/).
 
-Built on the **exact same color foundation** as the native Dark theme — same deep blacks, same contrast ratios, same UI feel. Every purple accent (`#a464c2`) is swapped to blue (`#086DD6`), and nothing else about the palette moves.
+Built on the **exact same color foundation** as the native Dark theme — same deep blacks, same contrast ratios, same UI feel. Every purple accent (`#a464c2`) is swapped to lavender (`#a79ef4`), and nothing else about the palette moves except the text that sits *on* the accent, which goes dark so it stays legible — see [What Changed vs Native Dark](#what-changed-vs-native-dark).
+
+Lavender is a fork of [Dark Blue](https://github.com/beshoysabri/sn-dark-blue-theme): same stylesheet, same Inter setup, same GitHub Pages hosting, with the blue accent swapped for lavender. It keeps Dark Blue's version line, so the version history below is shared — v2.5.0 is the first Lavender release.
 
 ## Installation
 
@@ -14,13 +16,15 @@ Built on the **exact same color foundation** as the native Dark theme — same d
 3. Paste the following URL:
 
 ```
-https://beshoysabri.github.io/sn-dark-blue-theme/ext.json
+https://beshoysabri.github.io/sn-lavender-theme/ext.json
 ```
 
 4. Click **Install**
-5. Select **Dark Blue** from the Appearance menu
+5. Select **Lavender** from the Appearance menu
 
-There's a preview and a copy button at **[beshoysabri.github.io/sn-dark-blue-theme](https://beshoysabri.github.io/sn-dark-blue-theme)**.
+There's a preview and a copy button at **[beshoysabri.github.io/sn-lavender-theme](https://beshoysabri.github.io/sn-lavender-theme)**.
+
+Lavender has its own identifier, so it installs alongside Dark Blue rather than replacing it — switch between the two from the Appearance menu.
 
 | Client | Colours | Inter |
 |---|---|---|
@@ -47,10 +51,10 @@ Skip this and the theme still works — you get the colours, and the text stays 
 <details>
 <summary>Alternative: jsDelivr</summary>
 
-The theme is also reachable over jsDelivr, which is where it lived before v2.2.0:
+The theme is also reachable over jsDelivr:
 
 ```
-https://cdn.jsdelivr.net/gh/beshoysabri/sn-dark-blue-theme@master/ext.json
+https://cdn.jsdelivr.net/gh/beshoysabri/sn-lavender-theme@master/ext.json
 ```
 
 Both origins serve the same files. GitHub Pages is the default because branch-pinned jsDelivr URLs are cached for roughly 12 hours, so a push doesn't show up until the cache expires or you purge it. Pages republishes on every push to `master`.
@@ -59,7 +63,7 @@ Both origins serve the same files. GitHub Pages is the default because branch-pi
 
 ## Hosting
 
-Pushing to `master` triggers `.github/workflows/pages.yml`, which verifies the theme before publishing — that `ext.json` and `package.json` agree on a version, that both woff2 files exist, that both `@font-face` sources are the absolute Pages URLs, that all **90** colour declarations still hash to the v2.1.0 digest, that some rule actually applies `--sn-inter-font`, that the section 5 opt-ins are still commented out, and that braces balance in the comment-stripped `dist.css`. A failed check blocks the deploy rather than shipping a broken stylesheet.
+Pushing to `master` triggers `.github/workflows/pages.yml`, which verifies the theme before publishing — that `ext.json` and `package.json` agree on a version, that both woff2 files exist, that both `@font-face` sources are the absolute Pages URLs, that all **90** colour declarations still hash to the v2.5.0 lavender digest, that some rule actually applies `--sn-inter-font`, that the section 5 opt-ins are still commented out, and that braces balance in the comment-stripped `dist.css`. A failed check blocks the deploy rather than shipping a broken stylesheet.
 
 The digest originally covered only the 51 `--sn-stylekit-*` names, which left 39 real colours — navigation, items column, editor, titlebar, text selection, popover — unguarded. It now covers every custom property except the three `--sn-inter-*` typography knobs.
 
@@ -73,7 +77,9 @@ Enable it once under **Settings → Pages → Source → GitHub Actions**.
 | Surface | `#1c1d1e` | ![1c1d1e](https://img.shields.io/badge/-1c1d1e-1c1d1e?style=flat-square) |
 | Border | `#181a1b` | ![181a1b](https://img.shields.io/badge/-181a1b-181a1b?style=flat-square) |
 | Foreground | `#eeeeee` | ![eeeeee](https://img.shields.io/badge/-eeeeee-eeeeee?style=flat-square) |
-| Accent (Blue) | `#086DD6` | ![086DD6](https://img.shields.io/badge/-086DD6-086DD6?style=flat-square) |
+| Accent (Lavender) | `#a79ef4` | ![a79ef4](https://img.shields.io/badge/-a79ef4-a79ef4?style=flat-square) |
+| Accent, darkened | `#8a7ff0` | ![8a7ff0](https://img.shields.io/badge/-8a7ff0-8a7ff0?style=flat-square) |
+| Text on accent | `#0f1011` | ![0f1011](https://img.shields.io/badge/-0f1011-0f1011?style=flat-square) |
 | Success | `#2b9612` | ![2b9612](https://img.shields.io/badge/-2b9612-2b9612?style=flat-square) |
 | Warning | `#cc8800` | ![cc8800](https://img.shields.io/badge/-cc8800-cc8800?style=flat-square) |
 | Danger | `#f80324` | ![f80324](https://img.shields.io/badge/-f80324-f80324?style=flat-square) |
@@ -99,19 +105,19 @@ Three variables at the top of `dist/dist.css` control it:
 | `--sn-inter-mono` | Code face. Defaults to whatever Standard Notes already uses. |
 | `--sn-inter-features` | OpenType features. `cv05` gives lowercase `l` a tail so it stops looking like a capital `I`. Set to `normal` to disable. |
 
-Inter's contextual alternates fuse `->` into a single `→` glyph. If the caret feels off by one when you arrow across it, section 4 has a block that turns ligatures back off — along with tighter heading tracking, roomier leading, tabular figures in tables, and a block that confines Inter to the editor again the way v2.2.0 did.
+Inter's contextual alternates fuse `->` into a single `→` glyph. If the caret feels off by one when you arrow across it, section 5 has a block that turns ligatures back off — along with tighter heading tracking, roomier leading, tabular figures in tables, and a block that confines Inter to the editor again the way v2.2.0 did.
 
 ## Daily View
 
-Standard Notes' Daily notebook borrows the app's `danger` token for today's date, the selected day, the entry tiles and both create-note buttons — so on a blue theme they came out red. Since v2.4.0, section 4 of the stylesheet repaints those specific elements with the accent instead.
+Standard Notes' Daily notebook borrows the app's `danger` token for today's date, the selected day, the entry tiles and both create-note buttons — so on a lavender theme they came out red. Since v2.4.0, section 4 of the stylesheet repaints those specific elements with the accent instead.
 
-It's scoped deliberately rather than recolouring `--sn-stylekit-danger-color` wholesale, for two reasons: destructive controls should stay red, and the rules only *reference* the accent variables rather than declaring new ones — so the colour digest is unaffected and the byte-identical guarantee holds.
+It's scoped deliberately rather than recolouring `--sn-stylekit-danger-color` wholesale, for two reasons: destructive controls should stay red, and the rules only *reference* the accent variables rather than declaring new ones — so the colour digest is unaffected.
 
-Because they reference `--sn-stylekit-info-color` and friends, retuning the accent moves the Daily view with it automatically.
+Because they reference `--sn-stylekit-info-color` and friends, retuning the accent moves the Daily view with it automatically — including the dark text on today's date and the entry tiles.
 
 ## What Changed vs Native Dark
 
-The accent color, and the font. Every background, border, shadow, and text color is identical to the built-in Dark theme. The purple-to-blue swap applies to:
+The accent color, the text that sits on it, and the font. Every background, border and shadow — and every other text color — is identical to the built-in Dark theme. The purple-to-lavender swap applies to:
 
 - Selected items and navigation highlights
 - Links, buttons, and focus rings
@@ -121,17 +127,27 @@ The accent color, and the font. Every background, border, shadow, and text color
 - Component highlight color
 - Titlebar hover state
 
+The darkened shade used for hover states (`#8a7ff0`) keeps lavender's hue and drops its lightness by the same amount Dark Blue's `#086DD6` → `#065cb5` did, and the faint accent backdrop is lavender at the same 6% opacity.
+
+**Text on the accent is dark.** Lavender is much lighter than the native purple or Dark Blue's blue: the near-white `#eeeeee` that native Dark puts on accent fills manages only 2.0:1 against `#a79ef4`, under even the 3:1 floor for large text. So `--sn-stylekit-info-contrast-color` and `--text-selection-color` use the background colour `#0f1011` instead, at 8.0:1. That covers primary buttons, checkboxes, the Daily view's date tiles and create-note buttons, and selected text. These two are the only values besides the accent family that differ from Dark Blue.
+
+One blue stays on purpose: accessory tint 1 (`#086dd6`) is one of six native Dark tints Standard Notes uses for icons, not part of the accent, so it's left as Standard Notes ships it.
+
 ## Customization
 
-Want a different blue? Replace `#086DD6` in `dist/dist.css` with your preferred shade:
+Want a different lavender? Replace `#a79ef4` in `dist/dist.css` with your preferred shade:
 
 | Name | Hex |
 |------|-----|
-| **Standard Notes Blue** | `#086DD6` (default) |
-| Material Blue | `#2196F3` |
-| Tailwind Blue 600 | `#2563EB` |
-| VS Code Blue | `#007ACC` |
-| Notion Blue | `#2383E2` |
+| **Lavender** | `#a79ef4` (default) |
+| Catppuccin Lavender | `#b4befe` |
+| Dracula Purple | `#bd93f9` |
+| Material Deep Purple 200 | `#b39ddb` |
+| Tailwind Violet 400 | `#a78bfa` |
+
+All of these are light enough for the dark text-on-accent (7:1 or better). A mid-tone accent such as Dark Blue's `#086DD6` reads better with light text — set `--sn-stylekit-info-contrast-color` and `--text-selection-color` back to `#eeeeee` — and `--sn-stylekit-info-color-darkened` and `--sn-stylekit-info-backdrop-color` should move with whatever accent you pick.
+
+If you publish your own copy, the Pages workflow refuses any colour change until `EXPECTED` in `.github/workflows/pages.yml` is updated to match; the failed run prints the new digest.
 
 ## License
 

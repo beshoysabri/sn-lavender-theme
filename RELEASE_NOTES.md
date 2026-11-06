@@ -1,24 +1,33 @@
-fix(daily): restore the "day has an entry" marker, correct two comments
+feat: Lavender — fork Dark Blue with a #a79ef4 accent
 
-v2.4.0 repainted the Daily calendar's has-an-entry chip with
---sn-stylekit-info-backdrop-color, which is 6% alpha and all but vanishes
-against this theme's background. Standard Notes' own colour there is a
-clearly visible pale pill, so the affordance that tells you which days
-already hold a note was effectively erased. It now keeps the faint wash and
-gains a thin accent ring.
+Lavender is Dark Blue v2.4.1 with the accent moved from blue (#086DD6) to
+lavender (#a79ef4). Same native Dark foundation, same Inter setup, same
+GitHub Pages hosting and pre-publish checks. It gets its own identifier,
+com.beshoysabri.lavender-theme, so it installs alongside Dark Blue rather
+than replacing it.
 
-The ring is a box-shadow rather than a border: the element ships no
-border-width, so the border-color v2.4.0 set on it never rendered.
+The accent family moves together. Info colour, scrollbar thumb, component
+highlight, titlebar hover, text-selection background and note-preview
+progress go to #a79ef4. The darkened hover shade goes to #8a7ff0 — same
+hue, HSL lightness 6.9 points lower, mirroring Dark Blue's #086DD6 →
+#065cb5. The 6% backdrop becomes #a79ef40f.
 
-Two comments in section 4 also named the wrong elements — .bg-danger is
-today and .bg-danger-light is a day with an entry, not "the selected day"
-and "today when not selected". Corrected; the CSS itself was targeting the
-right elements throughout.
+Two values move that Dark Blue left alone: the text that sits on the
+accent. Lavender is far lighter than blue, and #eeeeee on #a79ef4 is
+2.05:1 — under even the 3:1 large-text floor — so
+--sn-stylekit-info-contrast-color and --text-selection-color are now
+#0f1011, at 8.02:1. That covers primary buttons, the Daily view's date
+tiles and create-note buttons, and selected text. The landing page's
+Copy button follows suit.
 
-deploy.sh: testing that RELEASE_NOTES.md merely exists was not enough. Now
-that the file is tracked it always exists, carrying the previous release's
-prose — the same trap that made v2.3.0 ship with a message describing
-v2.2.0, one release later and with a guard giving false confidence. The
-check now requires the notes to name the version being published.
+Accessory tint 1 stays #086dd6. It is a native Dark default for icon
+tints, not the accent.
 
-Released as 2.4.1.
+CI: the colour digest is re-baselined to the lavender palette — still 90
+declarations, still everything except the three --sn-inter-* knobs.
+
+Docs: README, landing page, ext.json, package.json and deploy.sh repointed
+at sn-lavender-theme. Two stale "section 4" references to the opt-in
+blocks now say section 5, where they have lived since v2.4.0.
+
+Released as 2.5.0.

@@ -43,7 +43,7 @@ jobs:
           import re, sys, hashlib
 
           css = open('dist/dist.css').read()
-          # Strip comments so the opt-in blocks in section 4 never count as live.
+          # Strip comments so the opt-in blocks in section 5 never count as live.
           stripped = re.sub(r'/\*.*?\*/', '', css, flags=re.S)
 
           def fail(msg):
@@ -53,23 +53,26 @@ jobs:
           # Standard Notes inlines theme CSS rather than linking it, so a
           # relative @font-face src resolves against the app's own origin and
           # 404s. v2.2.0 shipped that bug. Both srcs must be absolute.
-          BASE = 'https://beshoysabri.github.io/sn-dark-blue-theme/dist/fonts'
+          BASE = 'https://beshoysabri.github.io/sn-lavender-theme/dist/fonts'
           for face in ('InterVariable.woff2', 'InterVariable-Italic.woff2'):
               if f"url('{BASE}/{face}')" not in stripped:
                   fail(f'@font-face src for {face} is not the absolute Pages URL')
 
-          # Every colour must stay byte-identical to v2.1.0. Digesting only the
-          # --sn-stylekit-* names covered 51 of 93 custom properties and left 39
-          # real colours unguarded — navigation, items column, editor, titlebar,
-          # text selection, popover. The 3 --sn-inter-* typography knobs are the
-          # only custom properties deliberately excluded.
+          # Every colour must stay byte-identical to the v2.5.0 lavender palette
+          # (the v2.1.0 palette with the accent moved to #a79ef4). Digesting only
+          # the --sn-stylekit-* names covered 51 of 93 custom properties and left
+          # 39 real colours unguarded — navigation, items column, editor,
+          # titlebar, text selection, popover. The 3 --sn-inter-* typography
+          # knobs are the only custom properties deliberately excluded.
+          # Changing a colour on purpose means updating EXPECTED in the same
+          # commit; a failed run prints the new digest.
           decls = [(k, ' '.join(v.split()))
                    for k, v in re.findall(r'(--[\w-]+)\s*:\s*([^;]+);', stripped)
                    if not k.startswith('--sn-inter-')]
           if len(decls) != 90:
               fail(f'expected 90 colour declarations, found {len(decls)}')
           digest = hashlib.sha256('\n'.join(f'{k}={v}' for k, v in decls).encode()).hexdigest()
-          EXPECTED = '3fd01e1638f238f3cf37cc490e95b826f567d9c7698a3139da9a3bfc13298008'
+          EXPECTED = '0da97d388387ea35ce58bbccef56cd5f1c9924557dacd35fabc10d4e719c41ee'
           if digest != EXPECTED:
               fail(f'colours changed — digest {digest} != expected {EXPECTED}')
 
