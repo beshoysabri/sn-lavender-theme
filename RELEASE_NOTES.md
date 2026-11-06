@@ -1,33 +1,26 @@
-feat: Lavender — fork Dark Blue with a #a79ef4 accent
+fix: accessory tint 1 follows the accent; install from the desktop app
 
-Lavender is Dark Blue v2.4.1 with the accent moved from blue (#086DD6) to
-lavender (#a79ef4). Same native Dark foundation, same Inter setup, same
-GitHub Pages hosting and pre-publish checks. It gets its own identifier,
-com.beshoysabri.lavender-theme, so it installs alongside Dark Blue rather
-than replacing it.
+v2.5.0 left accessory tint 1 at the native #086dd6, treating it as a
+categorical icon colour. In the running app it is the most visible colour
+after the accent: Standard Notes tints the Super, plain-text and rich-text
+note icons with it, and pairs it with info-faded fills in the note's
+editing-status pill — the app is built on tint 1 matching the default blue
+accent. Dark Blue gets that match for free. Lavender now sets tint 1 to
+#a79ef4, so no blue is left over; the other five tints stay native.
 
-The accent family moves together. Info colour, scrollbar thumb, component
-highlight, titlebar hover, text-selection background and note-preview
-progress go to #a79ef4. The darkened hover shade goes to #8a7ff0 — same
-hue, HSL lightness 6.9 points lower, mirroring Dark Blue's #086DD6 →
-#065cb5. The 6% backdrop becomes #a79ef40f.
+Docs: Install Custom Plugin lives under Preferences → Plugins in current
+Standard Notes (v3.203.0), not General → Advanced Settings. The README and
+landing page now say so, and say to install from the desktop app: the web
+app's CSP only allows plugin links from Standard Notes' own servers and
+raw.githubusercontent.com, and the latter is refused anyway because the
+request is credentialed and GitHub answers Access-Control-Allow-Origin: *.
+That holds for every self-hosted theme, Dark Blue included. Installed themes
+sync, and the web app loads the stylesheet and fonts from Pages without
+complaint once installed — verified against app.standardnotes.com.
 
-Two values move that Dark Blue left alone: the text that sits on the
-accent. Lavender is far lighter than blue, and #eeeeee on #a79ef4 is
-2.05:1 — under even the 3:1 large-text floor — so
---sn-stylekit-info-contrast-color and --text-selection-color are now
-#0f1011, at 8.02:1. That covers primary buttons, the Daily view's date
-tiles and create-note buttons, and selected text. The landing page's
-Copy button follows suit.
+deploy.sh: strips the \r that native Windows curl leaves on its write-out,
+which made a healthy deploy report broken font assets on Windows.
 
-Accessory tint 1 stays #086dd6. It is a native Dark default for icon
-tints, not the accent.
+CI: colour digest re-baselined for tint 1 — still 90 declarations.
 
-CI: the colour digest is re-baselined to the lavender palette — still 90
-declarations, still everything except the three --sn-inter-* knobs.
-
-Docs: README, landing page, ext.json, package.json and deploy.sh repointed
-at sn-lavender-theme. Two stale "section 4" references to the opt-in
-blocks now say section 5, where they have lived since v2.4.0.
-
-Released as 2.5.0.
+Released as 2.5.1.

@@ -11,8 +11,8 @@ Lavender is a fork of [Dark Blue](https://github.com/beshoysabri/sn-dark-blue-th
 
 ## Installation
 
-1. Open Standard Notes
-2. Go to **Preferences** > **General** > **Advanced Settings** > **Install Custom Plugin**
+1. Open the Standard Notes **desktop** app
+2. Go to **Preferences** > **Plugins** > **Install Custom Plugin** (at the bottom of the page — older versions had it under **General** > **Advanced Settings**)
 3. Paste the following URL:
 
 ```
@@ -25,6 +25,8 @@ https://beshoysabri.github.io/sn-lavender-theme/ext.json
 There's a preview and a copy button at **[beshoysabri.github.io/sn-lavender-theme](https://beshoysabri.github.io/sn-lavender-theme)**.
 
 Lavender has its own identifier, so it installs alongside Dark Blue rather than replacing it — switch between the two from the Appearance menu.
+
+**Install from the desktop app, not the web app.** The web app's Content-Security-Policy only lets it fetch plugin links from Standard Notes' own servers and `raw.githubusercontent.com`, and even that one fails, because the request is sent with credentials and GitHub answers `Access-Control-Allow-Origin: *`. Pasting the link there gives *"Error downloading package details"* — for every self-hosted theme, Dark Blue included. Installed themes sync with your account, though, and the web app loads the stylesheet and fonts from Pages without complaint, so once it's installed on the desktop it shows up on the web too. Verified against app.standardnotes.com v3.203.0.
 
 | Client | Colours | Inter |
 |---|---|---|
@@ -63,7 +65,7 @@ Both origins serve the same files. GitHub Pages is the default because branch-pi
 
 ## Hosting
 
-Pushing to `master` triggers `.github/workflows/pages.yml`, which verifies the theme before publishing — that `ext.json` and `package.json` agree on a version, that both woff2 files exist, that both `@font-face` sources are the absolute Pages URLs, that all **90** colour declarations still hash to the v2.5.0 lavender digest, that some rule actually applies `--sn-inter-font`, that the section 5 opt-ins are still commented out, and that braces balance in the comment-stripped `dist.css`. A failed check blocks the deploy rather than shipping a broken stylesheet.
+Pushing to `master` triggers `.github/workflows/pages.yml`, which verifies the theme before publishing — that `ext.json` and `package.json` agree on a version, that both woff2 files exist, that both `@font-face` sources are the absolute Pages URLs, that all **90** colour declarations still hash to the lavender palette's digest, that some rule actually applies `--sn-inter-font`, that the section 5 opt-ins are still commented out, and that braces balance in the comment-stripped `dist.css`. A failed check blocks the deploy rather than shipping a broken stylesheet.
 
 The digest originally covered only the 51 `--sn-stylekit-*` names, which left 39 real colours — navigation, items column, editor, titlebar, text selection, popover — unguarded. It now covers every custom property except the three `--sn-inter-*` typography knobs.
 
@@ -126,12 +128,13 @@ The accent color, the text that sits on it, and the font. Every background, bord
 - Note preview progress bar
 - Component highlight color
 - Titlebar hover state
+- Super, plain-text and rich-text note icons, and the note's editing-status pill (accessory tint 1)
+
+That last one isn't the accent in name, but Standard Notes designs it to match: it's `#086dd6` natively, the same blue as the default accent, and the app pairs it with accent-tinted fills. Dark Blue gets the match for free; Lavender sets tint 1 to `#a79ef4` so no blue is left over. The other five accessory tints stay native.
 
 The darkened shade used for hover states (`#8a7ff0`) keeps lavender's hue and drops its lightness by the same amount Dark Blue's `#086DD6` → `#065cb5` did, and the faint accent backdrop is lavender at the same 6% opacity.
 
 **Text on the accent is dark.** Lavender is much lighter than the native purple or Dark Blue's blue: the near-white `#eeeeee` that native Dark puts on accent fills manages only 2.0:1 against `#a79ef4`, under even the 3:1 floor for large text. So `--sn-stylekit-info-contrast-color` and `--text-selection-color` use the background colour `#0f1011` instead, at 8.0:1. That covers primary buttons, checkboxes, the Daily view's date tiles and create-note buttons, and selected text. These two are the only values besides the accent family that differ from Dark Blue.
-
-One blue stays on purpose: accessory tint 1 (`#086dd6`) is one of six native Dark tints Standard Notes uses for icons, not part of the accent, so it's left as Standard Notes ships it.
 
 ## Customization
 

@@ -7,7 +7,7 @@
  * Author : Beshoy Sabri
  * License: MIT. Inter is OFL 1.1 — see
  *   https://beshoysabri.github.io/sn-lavender-theme/LICENSE-3RD-PARTY
- * Version: 2.5.0
+ * Version: 2.5.1
  *
  * FONTS — READ THIS. The desktop client sets
  *   Content-Security-Policy: default-src 'self' blob:
@@ -27,7 +27,7 @@
  *
  * Structure:
  *   1. Typography — Inter webfont + knobs
- *   2. Colours    — v2.1.0 palette, lavender accent (changed in 2.5.0)
+ *   2. Colours    — v2.1.0 palette, lavender accent (2.5.0; tint 1 2.5.1)
  *   3. Apply Inter app-wide                        (changed in 2.3.0)
  *   4. Daily view — lavender instead of danger red (new in 2.4.0)
  */
@@ -93,8 +93,9 @@
 
 /* ==============================================================
  * 2. COLOURS — the v2.1.0 palette with the accent moved to
- *    lavender. Everything except the accent family and the two
- *    colours that sit ON the accent is unchanged.
+ *    lavender. Everything except the accent family (accessory
+ *    tint 1 included, see below) and the two colours that sit ON
+ *    the accent is unchanged.
  * ============================================================== */
 
 :root {
@@ -165,9 +166,14 @@
   --sn-stylekit-passive-color-6: #e5e5e5;
   --sn-stylekit-passive-color-super-light: #f9f9f9;
 
-  /* Accessory tint (native Dark defaults). Tint 1 is Standard
-     Notes' stock blue for icon tints, not the accent, so it stays. */
-  --sn-stylekit-accessory-tint-color-1: #086dd6;
+  /* Accessory tint (native Dark defaults, except tint 1).
+     Standard Notes colours the Super, plain-text and rich-text
+     note icons with tint 1, and pairs it with info-faded fills
+     (the note's editing-status pill), so it is designed to match
+     the accent — natively both are #086dd6, which is why Dark
+     Blue never had to touch it. Left blue, it was the one blue
+     still visible in Lavender. (Changed in 2.5.1.) */
+  --sn-stylekit-accessory-tint-color-1: #a79ef4;
   --sn-stylekit-accessory-tint-color-2: #ea6595;
   --sn-stylekit-accessory-tint-color-3: #ebad00;
   --sn-stylekit-accessory-tint-color-4: #7049cf;
