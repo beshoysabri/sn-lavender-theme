@@ -65,7 +65,7 @@ Both origins serve the same files. GitHub Pages is the default because branch-pi
 
 ## Hosting
 
-Pushing to `master` triggers `.github/workflows/pages.yml`, which verifies the theme before publishing — that `ext.json` and `package.json` agree on a version, that both woff2 files exist, that both `@font-face` sources are the absolute Pages URLs, that all **90** colour declarations still hash to the lavender palette's digest, that some rule actually applies `--sn-inter-font`, that the section 6 opt-ins are still commented out, and that braces balance in the comment-stripped `dist.css`. A failed check blocks the deploy rather than shipping a broken stylesheet.
+Pushing to `master` triggers `.github/workflows/pages.yml`, which verifies the theme before publishing — that `ext.json` and `package.json` agree on a version, that both woff2 files exist, that both `@font-face` sources are the absolute Pages URLs, that all **90** colour declarations still hash to the lavender palette's digest, that some rule actually applies `--sn-inter-font`, that the rule honouring the Monospace Font option is still there, that the section 6 opt-ins are still commented out, and that braces balance in the comment-stripped `dist.css`. A failed check blocks the deploy rather than shipping a broken stylesheet.
 
 The digest originally covered only the 51 `--sn-stylekit-*` names, which left 39 real colours — navigation, items column, editor, titlebar, text selection, popover — unguarded. It now covers every custom property except the three `--sn-inter-*` typography knobs.
 
@@ -104,6 +104,8 @@ Two details make it work where v2.2.0 didn't:
 
 Code keeps a monospace face. That rule is listed after the app-wide one so it wins at equal specificity, and it disables contextual alternates so `->` stays two characters where that matters.
 
+Standard Notes' **Monospace Font** option (Preferences → Appearance) switches the note editor to monospace. Until v2.6.1 the app-wide Inter rule overrode it and the switch did nothing; a rule after it now hands the editor back.
+
 Three variables at the top of `dist/dist.css` control it:
 
 | Variable | Purpose |
@@ -112,7 +114,7 @@ Three variables at the top of `dist/dist.css` control it:
 | `--sn-inter-mono` | Code face. Defaults to whatever Standard Notes already uses. |
 | `--sn-inter-features` | OpenType features. `cv05` gives lowercase `l` a tail so it stops looking like a capital `I`. Set to `normal` to disable. |
 
-Inter's contextual alternates fuse `->` into a single `→` glyph. If the caret feels off by one when you arrow across it, section 6 has a block that turns ligatures back off — along with tighter heading tracking, roomier leading, tabular figures in tables, and a block that confines Inter to the editor again the way v2.2.0 did.
+Inter's contextual alternates fuse `->` into a single `→` glyph. If the caret feels off by one when you arrow across it, section 6 has a block that turns the arrows off. Since v2.6.1 it takes `calt` out of `--sn-inter-features` too, because `font-feature-settings` outranks `font-variant-ligatures`; before, the block left the arrows in place. Section 6 also has tighter heading tracking, roomier leading, tabular figures in tables, and a block that confines Inter to the editor again the way v2.2.0 did.
 
 ## Daily View
 
@@ -126,7 +128,7 @@ Because they reference `--sn-stylekit-info-color` and friends, retuning the acce
 
 Standard Notes uses one colour for both hover and selection, in the two places that matter: `--navigation-item-selected-background-color` in the sidebar, and `--item-cell-selected-background-color` in the note list, which the app defines as the contrast background. Under native Dark both are near-black (`#0f1011` and `#000000`), so the selected tag and the selected note each became a black bar.
 
-Since v2.6.0, section 5 keeps hover a neutral grey and gives the selected sidebar item and the selected note an 18% lavender wash, with the sidebar label in lavender (4.6:1 on the wash). Like the Daily view rules, they only *reference* variables, so the colour digest is unaffected — and they match Standard Notes' own class names, so they may need revisiting if the app restyles its sidebar or note list.
+Since v2.6.0, section 5 keeps hover a neutral grey and gives the selected sidebar item and the selected note an 18% lavender wash, with the sidebar label in lavender (4.6:1 on the wash). The label rule sets `-webkit-text-fill-color` as well as `color`: Standard Notes paints tag titles with `-webkit-text-fill-color`, which wins over `color`, so until v2.6.1 the label stayed `#eeeeee` on screen. Like the Daily view rules, they only *reference* variables, so the colour digest is unaffected — and they match Standard Notes' own class names, so they may need revisiting if the app restyles its sidebar or note list.
 
 ## What Changed vs Native Dark
 

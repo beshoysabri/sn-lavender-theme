@@ -1,35 +1,39 @@
-feat: a charcoal base and lavender selection, instead of near-black
+fix: honour the Monospace option, make the opt-ins work, tint the tag label
 
-Through 2.5.1 Lavender was native Dark's palette with the accent swapped.
-Next to Todoist's dark mode, which wears the same lavender, it felt off,
-and the reasons were in the base rather than the accent:
+Four fixes and no colour change: the 90 colour declarations still hash
+to the same digest.
 
-- Near-black (#0f1011) makes a pastel glow. Lavender is 8.0:1 against
-  it, where Dark Blue's mid-tone blue was 3.8:1; the native palette was
-  tuned for a mid-tone accent.
-- There were no in-between lavenders. The 6% accent backdrop is
-  invisible on dark, and Standard Notes paints the selected tag and the
-  selected note with near-black (#0f1011, and #000000 through the
-  contrast background), so selection read as a black bar.
-- Sidebar labels and note text were pure #ffffff on near-black, 19.1:1.
+The Monospace Font option (Preferences > Appearance) did nothing.
+Standard Notes puts .monospace-font on <html> and points .font-editor,
+the note editor, at the monospace stack, but section 3's html, body,
+body * rule sets Inter with !important and won. A rule after it hands
+.font-editor back to the monospace face while the option is on.
 
-2.6.0 lifts the neutrals to charcoal: #1e1e1e base, #252525 sidebar and
-surfaces, #2a2a2a borders, #333333 separators, near-opaque charcoal
-menus. Pure white softens to #eeeeee (14.4:1). The accent gets
-in-between shades: an 18% backdrop, a 35% text-selection wash under
-light text (7.1:1) in place of a solid block with dark text, and a 40%
-scrollbar thumb. Text on solid lavender follows the base, #1e1e1e at
-7.0:1.
+The selected tag's label was never lavender on screen. Section 5 set
+only color, but Standard Notes paints tag titles with
+-webkit-text-fill-color: var(--navigation-item-text-color), which wins,
+so the pixels stayed #eeeeee. The rule now sets both, as Lavender Light
+and Levanta Dark do.
 
-A new section 5 makes selection a lavender wash. Standard Notes uses one
-colour for hover and selection in both the sidebar and the note list, so
-hover stays a neutral grey and rules give the selected tag and the
-selected note the 18% backdrop, with the sidebar label in lavender. They
-only reference variables, so the digest still covers exactly 90
-declarations. The optional extras move to section 6.
+The section 6 block that turns the -> arrow back off left the arrows
+in place. It set only font-variant-ligatures: none, but
+--sn-inter-features asks for 'calt' 1, and font-feature-settings
+outranks font-variant-ligatures. The block now also takes calt out of
+--sn-inter-features, and uses no-contextual so other ligatures stay.
 
-Previewed against 2.5.1 in app.standardnotes.com before release. Docs
-and the landing page now describe the charcoal base instead of promising
-native Dark's colours.
+The section 6 block for tabular figures in Super tables stopped at the
+<table>: section 3 sets feature settings on every element, so the
+cells' text never inherited 'tnum'. It now targets the table and
+everything in it.
 
-Released as 2.6.0.
+CI: a check that the Monospace rule is still there.
+
+Checked in app.standardnotes.com: flipping Preferences > Appearance >
+Monospace Font draws a note in the monospace face (Chrome's per-node
+font report: Liberation Mono, where it was Inter); the uncommented
+arrows block leaves "a -> b" as six glyphs in the title and the editor
+(five, fused, without it); the selected tag's label samples #a79ef4;
+and with the tabular block on, a cell's text computes "cv05", "tnum"
+(it was "calt", "cv05", "liga").
+
+Released as 2.6.1.
